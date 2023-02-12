@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 20:30:03 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/11 20:46:59 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:51:51 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	char_to_binair(char c, int pid)
 		signal_type = c % 2;
 		c = c / 2;
 		send_signal(signal_type, pid);
+		usleep(1);
 	}
 }
