@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:41:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/12 19:31:10 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:39:04 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	byte_to_char(int sig)
 	sigset_t	set;
 	static int	numbyte;
 
-	if (numbyte == 0 || numbyte == 6)
+	if (numbyte == 0 || numbyte == 7)
 	{
 		sigemptyset(&set);
 		numbyte = 0;
@@ -26,13 +26,16 @@ void	byte_to_char(int sig)
 	{
 		if (sig == SIGUSR1)
 		{
-			sigaddset(&set, numbyte);
+			sigaddset(&set, numbyte + 1);
+			// ft_putchar('1', 1);
 		}
 		numbyte++;
 	}
-	if (numbyte == 6)
+	if (numbyte == 7)
+	// {
+		// printf("\nnumbyte = %d , set = %u\n", numbyte, set);
+	// }
 		ft_putchar((char)set, 1);
-	ft_putchar(numbyte + 48, 1);
 }
 
 void	ft_putchar(char c, int fd)

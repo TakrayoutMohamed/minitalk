@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 20:30:03 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/12 16:22:30 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:16:35 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	char_to_binair(char c, int pid)
 {
 	int	signal_type;
+	int	number_of_bytes;
 
-	while (c)
+	number_of_bytes = 7;
+	while (number_of_bytes--)
 	{
 		signal_type = c % 2;
 		c = c / 2;
 		send_signal(signal_type, pid);
-		usleep(1);
+		usleep(400);
 	}
 }
