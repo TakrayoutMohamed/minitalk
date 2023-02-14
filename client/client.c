@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:20:59 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/12 19:32:38 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:14:29 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	{
 		while (argv[2][i])
 		{
-			char_to_binair(argv[2][i], atoi(argv[1])); // neeed to creat the ft_atoi
+			send_char_bite_bite(argv[2][i], atoi(argv[1])); // neeed to creat the ft_atoi
 			i++;
 		}
 	}

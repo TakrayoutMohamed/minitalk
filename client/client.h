@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:44:18 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/12 16:21:57 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:23:37 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <string.h>
 
 void	ft_handle_error(void);
-void	char_to_binair(char c, int pid);
+void	send_char_bite_bite(char c, int pid);
 int		send_signal(int signal_type, int pid);
 #endif
