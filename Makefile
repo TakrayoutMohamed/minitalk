@@ -20,28 +20,30 @@ SERVERPATH = ./server/
 CLIENTPATH = ./client/
 
 SERVER_SRC  =	$(SERVERPATH)server_utils.c   $(SERVERPATH)server.c
-CLIENT_SRC	=	$(CLIENTPATH)char_to_binair.c $(CLIENTPATH)ft_handle_error.c\
-				$(CLIENTPATH)send_signal.c    $(CLIENTPATH)client.c
+CLIENT_SRC	= $(CLIENTPATH)char_to_binair.c $(CLIENTPATH)ft_handle_error.c \
+				$(CLIENTPATH)send_signal.c $(CLIENTPATH)client.c
 
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME) : $(SERVERNAME) $(CLIENTNAME)
-# @$(CC) -I./server/ $(CFLAGS) -o $(SERVERNAME) $(SERVER_OBJ)
-# @echo "the server has ben created successfully"
-# @$(CC) -I. $(CFLAGS) -o $(CLIENTNAME) $(CLIENT_OBJ)
-# @echo "the client has ben created successfully"
+$(NAME) : $(CLIENT_OBJ) $(SERVER_OBJ)
+		@$(CC) -I. $(CFLAGS) -o $(SERVERNAME) $(SERVER_OBJ)
+		@echo "the server has ben created successfully"
+		@$(CC) -I. $(CFLAGS) -o $(CLIENTNAME) $(CLIENT_OBJ)
+		@echo "the client has ben created successfully"
 
-server: $(SERVER_OBJ)
-		$(CC) -o $@ $(SERVER_OBJ)
+# $(SERVERNAME): $(SERVER_OBJ)
+# 		$(CC) -o $@ $(SERVER_OBJ)
 
-client: $(CLIENT_OBJ)
-		@$(CC) -o $@ $(CLIENT_OBJ)
+$(CLIENTNAME): $(CLIENT_OBJ)
+		@$(CC) $(CFLAGS) -o $(CLIENTNAME) $(CLIENT_OBJ)
+		@echo "the client has ben created successfully"
+		
 
 %.o: %.c minitalk.h
-		@$(CC) $(CFLAGS)  -c $< 
+		@$(CC) $(CFLAGS)  -c $< -o $@
 		@echo "the file $@ has been created from $<"
 
 clean:
@@ -50,7 +52,7 @@ clean:
 
 fclean: clean
 		@$(RM) $(SERVER_OBJ) $(CLIENT_OBJ)
-		@echo "the libft.a has been deleted"
+		@echo "the executable has been deleted"
 	
 re: fclean all
 

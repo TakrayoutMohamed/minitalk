@@ -18,7 +18,7 @@ void	byte_to_char(int sig, siginfo_t *info, void *ucontext)
 	static int		numbyte;
 	static int		client_pid;
 
-	ucontext = NULL;
+	(void *)ucontext;
 	if (numbyte == 8 || client_pid != info->si_pid)
 	{
 		client_pid = info->si_pid;
@@ -41,7 +41,7 @@ void	byte_to_char(int sig, siginfo_t *info, void *ucontext)
 			write(1, "0", 2);
 	}
 	if (numbyte == 8)
-		ft_putchar((unsigned char)set, 1);
+		ft_putchar((char)set, 1);
 }
 
 void	ft_putchar(char c, int fd)
