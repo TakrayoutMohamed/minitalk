@@ -6,12 +6,15 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 18:48:09 by mohtakra          #+#    #+#              #
-#    Updated: 2023/02/14 18:48:12 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/02/15 17:48:41 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAMECLIENT = client
-NAMESERVER = server
+# NAMECLIENT=client
+# NAMESERVER=server
+NAME=MINITALK
+SERVERNAME=server
+CLIENTNAME=client
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 RM=rm -f
@@ -22,31 +25,37 @@ SERVER_SRC  =	$(SERVERPATH)server_utils.c   $(SERVERPATH)server.c
 CLIENT_SRC	=	$(CLIENTPATH)char_to_binair.c $(CLIENTPATH)ft_handle_error.c\
 				$(CLIENTPATH)send_signal.c    $(CLIENTPATH)client.c
 
-SERVER_SRC	 =  $(SERVER_SRC:.c=.o)
-CLIENT_OBJ	 =  $(CLIENT_SRC:.c=.o)
+SERVER_OBJ = $(SERVER_SRC:.c=.o)
+CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
-all: $(NAMECLIENT) $(NAMESERVER)
+all: $(NAME)
 
-norm : $(SERVER_SRC) $(CLIENT_SRC)
-	@echo "**********************the Norminette result*************************"
-	@norminette $(SERVER_SRC) $(CLIENT_SRC) minitalk.h $(SERVERPATH)server.h $(CLIENTPATH)client.h
+$(NAME) : $(SERVERNAME) $(CLIENTNAME)
 
-#$(NAMECLIENT): $(CLIENT_OBJ)
-#		@ar rc $@ $(CLIENT_OBJ)
-#		@echo "all the files has been archieved successfully in $@"
+server: $(SERVER_OBJ)
+		$(CC) -o $@ $(SERVER_OBJ)
+		@echo "the server has ben created successfully"
 
-%.o : %.c ft_printf.h $(LIBFTPATH)libft.h
-		@$(CC) -I. -o $@ -c $< $(CFLAGS)
+client: $(CLIENT_OBJ)
+		@$(CC) -o $@ $(CLIENT_OBJ)
+		@echo "the client has ben created successfully"
+
+$(SERVER_OBJ) : $(SERVER_SRC) $(SERVERPATH)server.h 
+		@$(CC) -I. $(CFLAGS) -o $@ -c $< 
+		@echo "the file $@ has been created from $<"
+
+%.o: %.c $(SERVERPATH)server.h 
+		@$(CC) -I. $(CFLAGS) -o $@ -c $< 
 		@echo "the file $@ has been created from $<"
 
 clean:
-		@$(RM) $(OBJ)
+		@$(RM) $(SERVER_OBJ) $(CLIENT_OBJ)
 		@echo "all the .o has been deleted successfully"
-		
-fclean: clean
-		@$(RM) $(NAME)
-		@echo "the $(NAME) has been deleted"
 
+fclean: clean
+		@$(RM) $(SERVERPATH)$(SERVER_OBJ) $(CLIENTPATH)$(CLIENT_OBJ)
+		@echo "the libft.a has been deleted"
+	
 re: fclean all
 
-.PHONE : clean $(NAME) all fclean re norm
+.PHONE : clean $(NAME) all fclean bonus re
