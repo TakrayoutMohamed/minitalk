@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 20:30:03 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/17 10:38:32 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:42:00 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	send_char_bite_bite(unsigned char c, int pid)
 		c = c / 2;
 		if (send_signal(bit_to_send, pid) == -1)
 		{
-			ft_handle_error();
-			return;
+			ft_handle_error("Error with the kill function");
+			exit(EXIT_FAILURE);
 		}
-		usleep(200);
+		usleep(300);
 	}
 }

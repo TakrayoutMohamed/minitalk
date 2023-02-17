@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 18:48:09 by mohtakra          #+#    #+#              #
-#    Updated: 2023/02/16 16:32:53 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/02/17 17:34:07 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ CFLAGS=-Wall -Wextra -Werror
 RM=rm -f
 SERVERPATH = ./serverfolder/
 CLIENTPATH = ./clientfolder/
+ERRORPATH = ././handle_error//
 
-SERVER_SRC  =	$(SERVERPATH)server_utils.c  $(SERVERPATH)main_server.c
-CLIENT_SRC	=	$(CLIENTPATH)char_to_binair.c $(CLIENTPATH)ft_handle_error.c \
+SERVER_SRC  =	$(SERVERPATH)server_utils.c  $(SERVERPATH)main_server.c \
+				$(ERRORPATH)ft_handle_error.c
+CLIENT_SRC	=	$(CLIENTPATH)char_to_binair.c $(ERRORPATH)ft_handle_error.c \
 				$(CLIENTPATH)send_signal.c $(CLIENTPATH)main_client.c
 
 SERVER_OBJ = $(SERVER_SRC:.c=.o)

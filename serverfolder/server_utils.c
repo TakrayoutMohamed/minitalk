@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:41:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/17 12:46:48 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:43:10 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_nbr_bytes(int first_byte);
 /*returns the reverse bytes of an sigset_t taken as argument*/
-static sigset_t	reverse_nbr_bytes(sigset_t set, int numbytes)
+sigset_t	reverse_nbr_bytes(sigset_t set, int numbytes)
 {
 	sigset_t	reversed_number;
 	int			number_of_bits;
@@ -34,9 +34,12 @@ static sigset_t	reverse_nbr_bytes(sigset_t set, int numbytes)
 			j = 0;
 		}
 		if (set % 2 == 1)
-			sigaddset(&reversed_number, number_of_bits - ((8 * numbytes - 1) - j++));
+		{
+			sigaddset(&reversed_number, number_of_bits - ((8 * numbytes - 1) - j));
+		}
 		set = set / 2;
 		i++;
+		j++;
 	}
 	return (reversed_number);
 }
@@ -45,22 +48,14 @@ int	get_nbr_bytes(int first_byte)
 {
 	int	needed_bytes;
 
-	if (first_byte <= 127)
-	{
+	if (first_byte < 192)
 		needed_bytes = 1;
-	}
-	if (first_byte > 127 && first_byte <= 192)
-	{
-		needed_bytes = 1;
-	}
-	if (first_byte > 192 && first_byte <= 224)
-	{
+	if (first_byte >= 192 && first_byte < 224)
 		needed_bytes = 2;
-	}
-	if (first_byte > 224 && first_byte <= 240)
-	{
+	if (first_byte >= 224 && first_byte < 240)
 		needed_bytes = 3;
-	}
+	if (first_byte >= 240)
+		needed_bytes = 4;
 	return (needed_bytes);
 }
 
@@ -76,37 +71,19 @@ void	byte_to_char(int sig, siginfo_t *info, void *ucontext)
 	static int		client_pid;
 	static int		numbyte;
 
-	// printf("**numbit = %d numbyte = %d**",numbit,numbyte);
 	(void)ucontext;
 	if (numbit == (8 * numbyte) || client_pid != info->si_pid)
 	{
 		client_pid = info->si_pid;
-		if (sigemptyset(&set))
-			exit(EXIT_FAILURE);
+		sigemptyset(&set);
 		numbit = 0;
 		numbyte = 1;
 	}
 	if (sig == SIGUSR1 || sig == SIGUSR2)
 	{
 		if (sig == SIGUSR1)
-		{
 			sigaddset(&set, numbit + 1);
-		}
-		if (sig == SIGUSR1)
-		{
-			// printf("1");
-			printf("\n**numbit = %d numbyte = %d** \n",numbit,numbyte);
-			write(1, "1\n", 3);
-		}
-		if (sig == SIGUSR2)
-		{
-			// printf("0");
-			// printf("**numbit = %d numbyte = %d**",numbit,numbyte);
-			write(1, "0", 2);
-		}
 		numbit++;
-		if (numbit == 8)
-			printf("\nhhhhhhh\n");
 	}
 	if (numbit == 8)
 		numbyte = get_nbr_bytes(set);
@@ -115,8 +92,9 @@ void	byte_to_char(int sig, siginfo_t *info, void *ucontext)
 		if (numbyte > 1)
 		{
 			set = reverse_nbr_bytes(set, numbyte);
+			write(1, &set, numbyte);
 		}
-		ft_putchar(set, numbyte);
-		printf("%u",set);
+		else
+			ft_putchar(set, 1);
 	}
 }

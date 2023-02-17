@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 20:23:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/16 19:55:43 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:26:56 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	# include <signal.h>
 	# include <string.h>
 	// the client's functions
-	void	ft_handle_error(void);
+	void	ft_handle_error(char *str);
 	void	send_char_bite_bite(unsigned char c, int pid);
 	int		send_signal(int signal_type, int pid);
 	// the server's function

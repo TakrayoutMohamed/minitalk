@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:20:59 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/16 16:55:48 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:29:08 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,14 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 3 || atoi(argv[1]) == 0 || atoi(argv[1]) == -1)  // neeed to creat the ft_atoi
+	if (argc != 3 || atoi(argv[1]) <= 0)  // neeed to creat the ft_atoi
 	{
-		ft_handle_error();
+		ft_handle_error("please make sure that args are 2 andpid is gt 0");
 	}
 	else
 	{
 		while (argv[2][i])
 		{
-			printf("the size of the string is : %lu\n",sizeof(argv[2]));
-			printf("\nchar %d : %d\n", i, argv[2][i]);
-			if (argv[2][i] > 127)
-			{
-				printf("dddddddf");
-			}
 			send_char_bite_bite(argv[2][i], atoi(argv[1])); // neeed to creat the ft_atoi
 			i++;
 		}
