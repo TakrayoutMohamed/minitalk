@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:20:59 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/02/17 17:29:08 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:29:09 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 3 || atoi(argv[1]) <= 0)  // neeed to creat the ft_atoi
+	if (argc != 3 || ft_atoi(argv[1]) <= 0)
 	{
-		ft_handle_error("please make sure that args are 2 andpid is gt 0");
+		ft_handle_error("****please make sure that you entered ");
+		ft_handle_error("two parameters \n");
+		ft_handle_error("****Exemple :\n****./client PID \"the string\"");
 	}
 	else
 	{
 		while (argv[2][i])
 		{
-			send_char_bite_bite(argv[2][i], atoi(argv[1])); // neeed to creat the ft_atoi
+			send_char_bit_bit(argv[2][i], ft_atoi(argv[1]));
 			i++;
 		}
 	}
